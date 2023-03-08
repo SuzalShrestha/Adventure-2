@@ -1,50 +1,53 @@
-const {Room}=require('../class/room.js');
-const {DarkRoom}=require('../class/darkroom.js');
-const {Player}=require('../class/player.js');
-const {Light}=require('../class/light.js');
-const chai=require('chai');
-const expect=chai.expect;
-const spies=require('chai-spies');
+const chai = require('chai');
+const expect = chai.expect;
+const spies = require('chai-spies');
 chai.use(spies);
-describe("DarkRoom",()=>{
-    let darkroom;
+
+const { DarkRoom } = require('../class/darkroom');
+const { Light } = require('../class/light');
+const {  Player } = require('../class/player');
+const { Room } = require('../class/room'); 
+
+
+describe("DarkRoom", () => {
     let player;
+    let darkroom;
     let light;
     let spy;
-    beforeEach(function(){
 
-        darkroom=new DarkRoom("darkroom","It is dark in here");
-        player=new Player("player",darkroom);
-        light=new Light("light","a light");
-        spy=chai.spy.on(darkroom,"printRoom");
+    beforeEach(function() {
+        darkroom = new DarkRoom("Test Dark Room", "It is a dark room");
+        light = new Light("light", "a light");
+        player = new Player("player", darkroom);
+        spy = chai.spy.on(darkroom, "printRoom");
         player.items.push(light);
     });
-    it("should be a subclass of Room",()=>{
-        
-        expect(darkroom).to.be.an.instanceof(Room);
-        expect(darkroom).to.be.an.instanceOf(DarkRoom);
 
+    it('should inherit from Room class', () => {
+        expect(darkroom instanceof Room).to.be.true;
+        expect(darkroom instanceof DarkRoom).to.be.true;
     });
-    context("if there is no light in the Room",()=>{
-        it("should print 'It is pitch black. You are likely to be eaten by a grue.'",()=>{
+    context('if there is no light in the room or being held', () => {
+        it('should show only a description of `You cannot see anything`', () => {
             darkroom.printDarkRoom();
             expect(spy).to.not.have.been.called();
         });
     });
-    context("if there is light in the Room",()=>{
-        it("should print the room's description",()=>{
+    context('if there is a light item in the room', () => {
+        it('should print room details`', () => {
             darkroom.items.push(light);
-            darkroom.hasLight=true;
+            darkroom.hasLight = true;
             darkroom.printDarkRoom();
             expect(spy).to.have.been.called.once;
         });
     });
-    context("if there is light holded by the player",()=>{
-        it("should print the room's description",()=>{
+    context('if there is a light holded by player', () => {
+        it('should print room details`', () => {
             player.items.push(light);
-            darkroom.hasLight=true;
+            darkroom.hasLight = true;
             darkroom.printDarkRoom();
             expect(spy).to.have.been.called.once;
         });
     });
+    
 });

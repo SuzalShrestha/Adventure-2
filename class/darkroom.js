@@ -1,15 +1,21 @@
-const {Room}=require('./room.js');
-class DarkRoom extends Room{
-    constructor(name,description){
+const { Room } = require('./room');
+
+
+class DarkRoom extends Room {
+    constructor(name, description) {
         super(name,description);
-        this.haslight=false;
+        this.hasLight = false;
     }
-    printDarkRoom(){
-    if(this.haslight){
-        this.printRoom();
-    }else{
-        console.log("It is pitch black. You are likely to be eaten by a grue.");
+    printDarkRoom() {
+        if (this.hasLight) {
+            this.printRoom();
+        } else {
+            console.log('You cannot see anything');
+        }
     }
+
 }
-}
-module.exports={DarkRoom};
+
+module.exports = {
+    DarkRoom
+};

@@ -6,7 +6,7 @@ class Player extends Character {
 
   constructor(name, startingRoom) {
     super(name, "main character", startingRoom);
-    this.items=[];
+    
   }
 
   move(direction) {

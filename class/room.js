@@ -52,16 +52,16 @@ class Room {
   }
 
   getItemByName(name) {
-    let result;
+    
     // Fill this in
     for(let item of this.items){
       
       if(item.name===name){
-        result=item;
+        return item;
       }
       
     }
-    return result;
+    
 
   }
 
@@ -69,16 +69,16 @@ class Room {
 
     // Fill this in
     const enemies=this.getEnemies();
-    let returnEnemy;
+    
     for(let enemy of enemies){
       if(enemy.name===name){
-        returnEnemy= enemy;
+        return enemy;
       }
     }
-    return returnEnemy;
+    return null;
 
 }
 }
 module.exports = {
-  Room,
+  Room
 };

@@ -25,6 +25,7 @@ class Character {
     for(let item of this.items){
       this.currentRoom.items.push(item);
     }
+    this.items=[];
     this.currentRoom=null;
   }
 

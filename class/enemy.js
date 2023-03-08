@@ -7,6 +7,7 @@ class Enemy extends Character {
     super(name, description, currentRoom);
     this.cooldown=3000;
     this.attackTarget=null;
+    this.act();
   }
 
   setPlayer(player) {
@@ -54,8 +55,11 @@ class Enemy extends Character {
     if(this.cooldown>0){
       this.reset();
     }else{
-      this.attackTarget.applyDamage(10);
-      this.cooldown=3000;
+      if(this.attackTarget){
+
+        this.attackTarget.health-=this.strength;
+        this.cooldown=3000;
+      }
     }
   }
 
@@ -80,7 +84,7 @@ class Enemy extends Character {
 
 
   scratchNose() {
-    this.cooldown += 1000;
+    this.cooldown += 3000;
 
     this.alert(`${this.name} scratches its nose`);
 
